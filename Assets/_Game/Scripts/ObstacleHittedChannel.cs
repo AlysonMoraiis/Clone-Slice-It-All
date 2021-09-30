@@ -5,9 +5,17 @@ using UnityEngine.Events;
 public class ObstacleHittedChannel : ScriptableObject
 {
     public UnityAction OnObstacleHitted;
+    public UnityAction OnCableTrigger;
 
     public void RaiseEvent()
     {
         OnObstacleHitted?.Invoke();
     }
+
+    public void RaiseDeadEvent()
+    {
+        OnCableTrigger?.Invoke();
+    }
+
+
 }

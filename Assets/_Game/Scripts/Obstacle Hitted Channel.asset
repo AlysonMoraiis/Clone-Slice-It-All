@@ -10,5 +10,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 77314f6fe391833478d1015249fbc879, type: 3}
-  m_Name: New Obstacle Hitted Channel
+  m_Name: Obstacle Hitted Channel
   m_EditorClassIdentifier: 

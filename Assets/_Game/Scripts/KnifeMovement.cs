@@ -6,7 +6,8 @@ public class KnifeMovement : MonoBehaviour
     private Rigidbody rb;
     [SerializeField]
     private float clickForce;
-    private bool isJump;
+    [SerializeField]
+    private ObstacleHittedChannel obstacleHittedChannel;
 
     public float speed;
 
@@ -15,20 +16,13 @@ public class KnifeMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
-    void Update()
+    public void KnifeJump()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            rb.freezeRotation = false;
-            KnifeJump();
-        }
-    }
-
-    private void KnifeJump()
-    {
+        //rb.freezeRotation = false;
+        rb.constraints = RigidbodyConstraints.None;
         rb.angularVelocity = new Vector3(0,0, -4.5f);
         rb.velocity = new Vector3(speed, clickForce, 0);
-        rb.constraints = RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationX;
+        rb.constraints = RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezePositionZ;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -36,7 +30,18 @@ public class KnifeMovement : MonoBehaviour
         if(collision.gameObject.CompareTag("Ground"))
         {
             rb.velocity = Vector3.zero;
-            rb.freezeRotation = true;
+            //rb.freezeRotation = true;
+            //rb.freezePositionX = true;
+            rb.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.CompareTag("Ground"))
+        {
+            obstacleHittedChannel.RaiseDeadEvent();
+            Debug.Log("Morreu");
         }
     }
 }

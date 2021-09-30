@@ -2,26 +2,32 @@ using UnityEngine;
 
 public class KnifeMovement : MonoBehaviour
 {
-    [SerializeField]
-    private Rigidbody rb;
+    [Header("Alterables")]
     [SerializeField]
     private float clickForce;
     [SerializeField]
-    private ObstacleHittedChannel obstacleHittedChannel;
-
-    public float speed;
+    private float movementSpeed;
+    [SerializeField]
+    private float rotationSpeed;
+    
+    [Header("ScriptableObjects")]
+    [SerializeField]
+    private KnifeCableCollision knifeCableCollision;
+    
+    [Header("Others")]
+    [SerializeField]
+    private Rigidbody rb;
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
     }
 
     public void KnifeJump()
     {
         //rb.freezeRotation = false;
         rb.constraints = RigidbodyConstraints.None;
-        rb.angularVelocity = new Vector3(0,0, -4.5f);
-        rb.velocity = new Vector3(speed, clickForce, 0);
+        rb.angularVelocity = new Vector3(0,0, -rotationSpeed);
+        rb.velocity = new Vector3(movementSpeed, clickForce, 0);
         rb.constraints = RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezePositionZ;
     }
 
@@ -40,7 +46,7 @@ public class KnifeMovement : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Ground"))
         {
-            obstacleHittedChannel.RaiseDeadEvent();
+            knifeCableCollision.RaiseEvent();
             Debug.Log("Morreu");
         }
     }

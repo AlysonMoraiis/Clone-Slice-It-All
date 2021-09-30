@@ -1,14 +1,16 @@
 using UnityEngine;
 
-public class Objects : MonoBehaviour
+public class ObstacleController : MonoBehaviour
 {
-    [SerializeField]
-    private Rigidbody rb;
+    [Header("ScriptableObjects")]
     [SerializeField]
     private ObstacleHittedChannel obstacleHitted;
     [SerializeField]
     private Data data;
-    
+
+    [Header("Others")]    
+    [SerializeField]
+    private Rigidbody rb;
 
     private void OnCollisionEnter(Collision collision)
     {

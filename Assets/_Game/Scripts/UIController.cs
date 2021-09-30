@@ -3,14 +3,21 @@ using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine.Events;
 
-public class UI : MonoBehaviour
+public class UIController : MonoBehaviour
 {
+    [Header("Texts")]
     [SerializeField]
     private TMP_Text coinsText;
+
+    [Header("ScriptableObjects")]
     [SerializeField]
     private Data data;
     [SerializeField]
     private ObstacleHittedChannel obstacleHittedChannel;
+    [SerializeField]
+    private KnifeCableCollision knifeCableCollision;
+
+    [Header("Others")]
     [SerializeField]
     private UnityEvent _events;
 
@@ -22,17 +29,17 @@ public class UI : MonoBehaviour
     private void OnEnable()
     {
         obstacleHittedChannel.OnObstacleHitted += ValueUpdate;
-        obstacleHittedChannel.OnCableTrigger += RestartPopUp;
+        knifeCableCollision.OnCableTrigger += RestartPopUp;
     }
     private void OnDisable()
     {
         obstacleHittedChannel.OnObstacleHitted -= ValueUpdate;
-        obstacleHittedChannel.OnCableTrigger -= RestartPopUp;
+        knifeCableCollision.OnCableTrigger -= RestartPopUp;
     }
 
     public void ValueUpdate()
     {
-        coinsText.text = "$" + data.Coins.ToString();
+        coinsText.text = "$ " + data.Coins.ToString();
     }
 
     public void RestartScene()

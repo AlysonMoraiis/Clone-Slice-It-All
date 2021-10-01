@@ -12,11 +12,12 @@ public class ObstacleController : MonoBehaviour
     [SerializeField]
     private Rigidbody rb;
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if(collision.gameObject.CompareTag("Knife"))
+        if(other.gameObject.CompareTag("Knife"))
         {
             data.Coins += 1;
+            Destroy(gameObject);
             Debug.Log("Bateu");
             obstacleHitted.RaiseEvent();
         }

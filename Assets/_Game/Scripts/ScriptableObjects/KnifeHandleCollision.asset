@@ -10,5 +10,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ac06237f0706f2341be2000c54a1e296, type: 3}
-  m_Name: Knife Cable Collision
+  m_Name: KnifeHandleCollision
   m_EditorClassIdentifier: 

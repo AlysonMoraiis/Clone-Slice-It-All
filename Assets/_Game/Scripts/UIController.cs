@@ -15,7 +15,7 @@ public class UIController : MonoBehaviour
     [SerializeField]
     private ObstacleHittedChannel obstacleHittedChannel;
     [SerializeField]
-    private KnifeCableCollision knifeCableCollision;
+    private KnifeHandleCollision knifeCableCollision;
 
     [Header("Others")]
     [SerializeField]

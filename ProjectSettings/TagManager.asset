@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ground
   - Knife
+  - Obstacle
   layers:
   - Default
   - TransparentFX

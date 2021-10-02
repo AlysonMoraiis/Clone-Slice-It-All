@@ -1,7 +1,6 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
-using UnityEngine.Events;
 
 public class UIController : MonoBehaviour
 {
@@ -16,10 +15,14 @@ public class UIController : MonoBehaviour
     private ObstacleHittedChannel obstacleHittedChannel;
     [SerializeField]
     private KnifeHandleCollision knifeCableCollision;
+    [SerializeField]
+    private WinCollisionChannel winCollisionChannel;
 
     [Header("Others")]
     [SerializeField]
-    private UnityEvent _events;
+    private GameObject restartPopUp;    
+    [SerializeField]
+    private GameObject winPopUp;
 
     private void Awake()
     {
@@ -30,11 +33,13 @@ public class UIController : MonoBehaviour
     {
         obstacleHittedChannel.OnObstacleHitted += ValueUpdate;
         knifeCableCollision.OnCableTrigger += RestartPopUp;
+        winCollisionChannel.OnWinCollision += WinPopUp;
     }
     private void OnDisable()
     {
         obstacleHittedChannel.OnObstacleHitted -= ValueUpdate;
         knifeCableCollision.OnCableTrigger -= RestartPopUp;
+        winCollisionChannel.OnWinCollision -= WinPopUp;
     }
 
     public void ValueUpdate()
@@ -42,19 +47,29 @@ public class UIController : MonoBehaviour
         coinsText.text = "$ " + data.Coins.ToString();
     }
 
-    public void RestartScene()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-
     private void RestartPopUp()
     {
-        _events.Invoke();
+        restartPopUp.SetActive(true);
+        Time.timeScale = 0;
+    }
+
+    private void WinPopUp()
+    {
+        winPopUp.SetActive(true);
         Time.timeScale = 0;
     }
 
     public void ResumeGame()
     {
         Time.timeScale = 1;
+    }
+    public void RestartScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void NextScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex +1);
     }
 }

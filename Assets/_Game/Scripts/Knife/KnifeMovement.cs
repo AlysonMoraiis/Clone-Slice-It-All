@@ -68,4 +68,5 @@ public class KnifeMovement : MonoBehaviour
             knifeHandleCollision.RaiseEvent();
         }
     }
+    
 }
